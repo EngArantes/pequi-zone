@@ -1,13 +1,30 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaPlay, FaPause, FaVolumeUp } from "react-icons/fa"; // Ícones para play/pause e volume
+import { db } from "./firebase"; // Supondo que você tenha configurado o Firebase
 import "./RadioPlayer.css";
 
-const RadioPlayer = ({ stationName, streamUrl }) => {
+const RadioPlayer = ({ stationName, streamId }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1); // Volume vai de 0 a 1
   const [error, setError] = useState(null); // Estado para erros
+  const [streamUrl, setStreamUrl] = useState(""); // URL do stream
   const audioRef = useRef(null); // Ref para controlar o áudio
-  streamUrl = "http://127.0.0.1:8000/radio_PO441d28UeYUwiYn94SNLDvlGd12.mp3";
+
+  // Função para buscar a URL do stream
+  const fetchStreamUrl = async () => {
+    try {
+      const doc = await db.collection("streams").doc(streamId).get(); // Aqui você busca no Firestore
+      if (doc.exists) {
+        setStreamUrl(doc.data().streamUrl); // Assume que a URL está no campo streamUrl
+      } else {
+        setError("Estação não encontrada.");
+      }
+    } catch (err) {
+      setError("Erro ao carregar o stream.");
+      console.error(err);
+    }
+  };
+
   // Função para tocar/pausar o áudio
   const togglePlayPause = () => {
     if (isPlaying) {
@@ -28,9 +45,16 @@ const RadioPlayer = ({ stationName, streamUrl }) => {
     audioRef.current.volume = newVolume;
   };
 
+  // Carregar a URL do stream quando o componente for montado
+  useEffect(() => {
+    if (streamId) {
+      fetchStreamUrl(); // Recupera a URL do stream quando o ID da estação mudar
+    }
+  }, [streamId]);
+
   // Reset do áudio quando a streamUrl muda
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && streamUrl) {
       audioRef.current.pause();
       audioRef.current.load();
       setIsPlaying(false);
@@ -38,11 +62,18 @@ const RadioPlayer = ({ stationName, streamUrl }) => {
     }
   }, [streamUrl]);
 
+  if (error) {
+    return <p>{error}</p>; // Exibe erro caso algo dê errado
+  }
+
   return (
     <div className="radio-player">
       <h2>Estação: {stationName}</h2>
-      <audio ref={audioRef} src={streamUrl} preload="auto" />
-      {error && <p className="error-message">{error}</p>}
+      {streamUrl ? (
+        <audio ref={audioRef} src={streamUrl} preload="auto" />
+      ) : (
+        <p>Carregando o stream...</p> // Mensagem enquanto a URL está sendo carregada
+      )}
       <div className="player-controls">
         <button onClick={togglePlayPause} className="play-pause-button">
           {isPlaying ? <FaPause /> : <FaPlay />}
