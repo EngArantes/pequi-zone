@@ -1,0 +1,196 @@
+/* Home.css */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Liter', sans-serif;
+  color: #333;
+}
+
+/* Hero Section */
+.hero-section {
+  width: 100%;
+  background: linear-gradient(135deg, #3a7755, #5BA97D);
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px; /* Adicionado padding para espaçamento */
+}
+
+.hero-content {
+  max-width: 800px;
+  width: 100%; /* Garante que o conteúdo não ultrapasse a largura máxima */
+}
+
+.hero-text {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.hero-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.hero-button.primary {
+  background-color: #F6C113;
+  color: #333;
+}
+
+.hero-button.secondary {
+  background-color: transparent;
+  border: 2px solid #F6C113;
+  color: #F6C113;
+}
+
+.hero-button.primary:hover {
+  background-color: #e0a800;
+}
+
+.hero-button.secondary:hover {
+  background-color: #F6C113;
+  color: white;
+}
+
+/* Como Funciona Section */
+.how-it-works {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha em telas menores */
+}
+
+.step {
+  flex: 1;
+  max-width: 300px;
+  min-width: 250px; /* Define uma largura mínima para evitar itens muito pequenos */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 10px; /* Adiciona margem para espaçamento */
+}
+
+.step-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #5BA97D;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto 20px;
+}
+
+.step h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Banner */
+.bannerHome {
+  max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+  height: auto; /* Mantém a proporção da imagem */
+  margin: 0 auto;
+}
+
+/* Media Queries para Responsividade */
+
+/* Tablets (768px a 1024px) */
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 40px 20px;
+  }
+
+  .hero-text {
+    font-size: 1.1rem;
+  }
+
+  .steps-container {
+    gap: 15px;
+  }
+
+  .step {
+    min-width: 200px;
+  }
+}
+
+/* Dispositivos móveis (até 768px) */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 30px 15px;
+  }
+
+  .hero-text {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column; /* Botões em coluna para telas pequenas */
+    gap: 10px;
+  }
+
+  .steps-container {
+    flex-direction: column; /* Passos em coluna para telas pequenas */
+    align-items: center;
+  }
+
+  .step {
+    max-width: 100%; /* Ocupa a largura total em telas pequenas */
+    min-width: unset;
+  }
+
+  .bannerHome {
+    height: auto;
+    width: 100%; /* Ajusta a largura da imagem para telas pequenas */
+  }
+}
+
+/* Dispositivos muito pequenos (até 480px) */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 20px 10px;
+  }
+
+  .hero-text {
+    font-size: 0.9rem;    
+  }
+
+  .step h3 {
+    font-size: 1.2rem;
+  }
+
+  .step p {
+    font-size: 0.9rem;
+  }
+}
