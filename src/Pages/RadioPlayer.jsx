@@ -7,7 +7,7 @@ const RadioPlayer = ({ stationName, streamUrl }) => {
   const [volume, setVolume] = useState(1); // Volume vai de 0 a 1
   const [error, setError] = useState(null); // Estado para erros
   const audioRef = useRef(null); // Ref para controlar o áudio
-  streamUrl = "https://stream.zeno.fm/mvwnqucijectv";
+  streamUrl = "http://127.0.0.1:8000/radio_PO441d28UeYUwiYn94SNLDvlGd12.mp3";
   // Função para tocar/pausar o áudio
   const togglePlayPause = () => {
     if (isPlaying) {
