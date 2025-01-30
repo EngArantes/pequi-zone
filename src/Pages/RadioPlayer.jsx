@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaPlay, FaPause, FaVolumeUp } from "react-icons/fa"; // Ícones para play/pause e volume
-import { db } from "./firebase"; // Supondo que você tenha configurado o Firebase
+import { db } from "../firebaseConfig"; // Supondo que você tenha configurado o Firebase
 import "./RadioPlayer.css";
 
 const RadioPlayer = ({ stationName, streamId }) => {
