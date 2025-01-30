@@ -21,6 +21,8 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
     }
   
     try {
+      console.log("Verificando se a estação já existe...");
+  
       // Verifica se já existe uma estação com o mesmo nome e usuário
       const stationsQuery = query(
         collection(db, "radioStations"),
@@ -34,9 +36,13 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
         return;
       }
   
+      console.log("Gerando credenciais exclusivas...");
+  
       // Gerando credenciais exclusivas
       const streamKey = uuidv4();
       const streamMount = `/radio_${currentUser.uid}.mp3`;
+  
+      console.log("Enviando requisição para o backend...");
   
       // Adiciona a montagem no Icecast
       const response = await fetch("https://us-central1-pequi-zone.cloudfunctions.net/api/add-mount", {
@@ -50,11 +56,16 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
           password: streamKey,
         }),
       });
-      
+  
+      console.log("Resposta do backend:", response);
   
       if (!response.ok) {
+        const errorResponse = await response.text();
+        console.error("Erro ao adicionar montagem no Icecast:", errorResponse);
         throw new Error("Erro ao adicionar montagem no Icecast");
       }
+  
+      console.log("Criando nova estação no Firestore...");
   
       // Criação da nova estação na base de dados
       const newStation = {
@@ -69,6 +80,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
   
       // Adiciona a estação no Firestore
       const docRef = await addDoc(collection(db, "radioStations"), newStation);
+      console.log("Estação criada com ID:", docRef.id);
   
       // Chama a função onCreate passando a nova estação com seu ID
       onCreate({ 
@@ -79,6 +91,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
       // Fecha o modal após a criação
       onClose();
     } catch (err) {
+      console.error("Erro ao criar a estação:", err);
       setError("Erro ao criar a estação. Tente novamente.");
     }
   };
