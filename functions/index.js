@@ -10,7 +10,7 @@ app.use(express.json()); // Permitir JSON no corpo das requisições
 // Defina as credenciais do Icecast (alterar conforme necessário)
 const icecastUrl = "http://localhost:8000/admin/"; // URL do Icecast
 const username = "admin"; // Nome de usuário de admin do Icecast
-const password = "password"; // Senha de admin do Icecast
+const password = "D102030"; // Senha de admin do Icecast
 
 // Função para adicionar uma nova montagem ao Icecast
 const addMountToIcecast = async (mountName, streamKey) => {
