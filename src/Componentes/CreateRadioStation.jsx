@@ -45,7 +45,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
       console.log("Enviando requisição para o backend...");
   
       // Adiciona a montagem no Icecast
-      const response = await fetch("https://us-central1-pequi-zone.cloudfunctions.net/api/add-mount", {
+      const response = await fetch("https://pequi-zone.web.app/api/add-mount", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
