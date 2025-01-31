@@ -27,19 +27,20 @@ const RadioPlayer = ({ stationName, streamId }) => {
 
   // Função para tocar/pausar o áudio
   const togglePlayPause = () => {
-    if (audioRef.current && streamUrl) {  // Verificar se a URL do stream está disponível
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play().catch((err) => {
-          setError("Erro ao reproduzir o áudio. Verifique a URL.");
-          console.error(err);
-        });
-      }
-      setIsPlaying(!isPlaying);
-    } else {
-      setError("Erro: O áudio não está carregado ou a URL não está definida.");
+    if (!audioRef.current) {
+      setError("Elemento de áudio não encontrado.");
+      return;
     }
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch((err) => {
+        setError("Erro ao reproduzir o áudio. Verifique a URL.");
+        console.error(err);
+      });
+    }
+    setIsPlaying(!isPlaying);
   };
 
   // Função para ajustar o volume
@@ -68,19 +69,14 @@ const RadioPlayer = ({ stationName, streamId }) => {
     }
   }, [streamUrl]);
 
-  // Exibe erro se existir
   if (error) {
-    return <p>{error}</p>;
+    return <p>{error}</p>; // Exibe erro caso algo dê errado
   }
 
   return (
     <div className="radio-player">
       <h2>Estação: {stationName}</h2>
-      {streamUrl ? (
-        <audio ref={audioRef} src={streamUrl} preload="auto" />
-      ) : (
-        <p>Carregando o stream...</p> // Mensagem enquanto a URL está sendo carregada
-      )}
+      <audio ref={audioRef} src={streamUrl} preload="auto" />
       <div className="player-controls">
         <button onClick={togglePlayPause} className="play-pause-button">
           {isPlaying ? <FaPause /> : <FaPlay />}
