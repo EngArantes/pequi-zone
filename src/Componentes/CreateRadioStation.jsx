@@ -46,7 +46,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
       const streamMount = `/radio_${currentUser.uid}.mp3`;
 
       // Configurações do servidor Icecast
-      const serverUrl = "http://149.90.203.102"; // Use localhost ou o endereço IP do servidor
+      const serverUrl = "http://149.90.203.102"; // Use o endereço IP público do servidor
       const port = "8000"; // Porta do Icecast
       const fullStreamUrl = `${serverUrl}:${port}${streamMount}`;
 
