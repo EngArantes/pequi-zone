@@ -42,8 +42,8 @@ app.post("/add-mount", async (req, res) => {
   try {
     const {mountName, username, password, streamKey} = req.body;
 
-    if (!mountName || !username || !password) {
-      return res.status(400).json({error: "Dados inválidos"});
+    if (!mountName || !username || !password || !streamKey) {
+      return res.status(400).json({error: "Campos são obrigatórios."});
     }
 
     // Aqui você pode chamar a função para adicionar a montagem no Icecast
