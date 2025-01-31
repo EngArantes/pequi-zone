@@ -14,7 +14,8 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    
+
+    // Validação dos campos
     if (!stationName || !stationGenre) {
       setError("Por favor, preencha todos os campos.");
       return;
@@ -22,49 +23,61 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
 
     try {
       console.log("Verificando se a estação já existe...");
-      
+
+      // Verifica se já existe uma estação com o mesmo nome para o usuário atual
       const stationsQuery = query(
         collection(db, "radioStations"),
         where("userId", "==", currentUser.uid),
         where("name", "==", stationName)
       );
       const querySnapshot = await getDocs(stationsQuery);
-      
+
       if (!querySnapshot.empty) {
         setError("Você já tem uma estação com esse nome.");
         return;
       }
 
       console.log("Gerando credenciais exclusivas...");
-      
+
+      // Gera uma chave única para o stream
       const streamKey = uuidv4();
+
+      // Define o mount point (caminho da montagem no Icecast)
       const streamMount = `/radio_${currentUser.uid}.mp3`;
-      const serverUrl = "http://[2001:818:e7ed:8e00:7c01:d6be:ef5:a6da]";
-      const port = "8000";
+
+      // Configurações do servidor Icecast
+      const serverUrl = "http://localhost"; // Use localhost ou o endereço IP do servidor
+      const port = "8000"; // Porta do Icecast
       const fullStreamUrl = `${serverUrl}:${port}${streamMount}`;
-      
+
       console.log("Enviando requisição para o backend...");
-      
-      const response = await fetch("https://us-central1-pequi-zone.cloudfunctions.net/api/add-mount", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mountName: streamMount,
-          username: currentUser.uid,
-          password: streamKey,
-        }),
-      });
-      
+
+      // Envia uma requisição para criar a montagem no Icecast
+      const response = await fetch(
+        "https://us-central1-pequi-zone.cloudfunctions.net/api/add-mount",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            mountName: streamMount,
+            username: currentUser.uid,
+            password: streamKey,
+          }),
+        }
+      );
+
+      // Verifica se a requisição foi bem-sucedida
       if (!response.ok) {
         const errorResponse = await response.text();
         console.error("Erro ao adicionar montagem no Icecast:", errorResponse);
         throw new Error("Erro ao adicionar montagem no Icecast");
       }
-      
+
       console.log("Criando nova estação no Firestore...");
-      
+
+      // Cria o objeto da nova estação
       const newStation = {
         name: stationName,
         genre: stationGenre,
@@ -77,15 +90,18 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
         port: port,
         fullStreamUrl: fullStreamUrl,
       };
-      
+
+      // Adiciona a nova estação ao Firestore
       const docRef = await addDoc(collection(db, "radioStations"), newStation);
       console.log("Estação criada com ID:", docRef.id);
-      
-      onCreate({ 
-        ...newStation, 
-        id: docRef.id 
+
+      // Notifica o componente pai sobre a criação da estação
+      onCreate({
+        ...newStation,
+        id: docRef.id,
       });
-      
+
+      // Fecha o modal
       onClose();
     } catch (err) {
       console.error("Erro ao criar a estação:", err);
@@ -110,6 +126,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
               value={stationName}
               onChange={(e) => setStationName(e.target.value)}
               placeholder="Digite o nome da estação"
+              required
             />
           </div>
           <div className="form-group">
@@ -120,6 +137,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
               value={stationGenre}
               onChange={(e) => setStationGenre(e.target.value)}
               placeholder="Digite o gênero musical"
+              required
             />
           </div>
           <button type="submit" className="submit-button">
