@@ -3,19 +3,25 @@ import { db } from "../firebaseConfig";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import "./ManageStation.css";
 
+const serverUrl = "http://SEU_IP_OU_DOMINIO:8000"; // Substitua pelo IP ou domínio do seu Icecast
+
 const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
   const [station, setStation] = useState(null);
-  const [newName, setNewName] = useState("");
-  const [newGenre, setNewGenre] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStationData = async () => {
-      const stationDoc = await getDoc(doc(db, "radioStations", stationId));
-      if (stationDoc.exists()) {
-        const stationData = stationDoc.data();
-        setStation(stationData);
-        setNewName(stationData.name);
-        setNewGenre(stationData.genre);
+      try {
+        const stationDoc = await getDoc(doc(db, "radioStations", stationId));
+        if (stationDoc.exists()) {
+          setStation(stationDoc.data());
+        } else {
+          console.error("Estação não encontrada.");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar estação:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -23,24 +29,16 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
   }, [stationId]);
 
   const handleUpdate = async () => {
+    if (!station) return;
+
     try {
       const stationRef = doc(db, "radioStations", stationId);
       await updateDoc(stationRef, {
-        name: newName,
-        genre: newGenre,
+        name: station.name,
+        genre: station.genre,
       });
 
-      // Atualiza os dados localmente
-      const updatedStation = {
-        id: stationId,
-        name: newName,
-        genre: newGenre,
-      };
-
-      // Chama a função onUpdate passada pelo Dashboard
-      onUpdate(stationId, updatedStation);
-
-      // Fechar o modal após a atualização
+      onUpdate(stationId, { ...station });
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar estação: ", error);
@@ -48,8 +46,7 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
   };
 
   const handleDeleteConfirmation = () => {
-    const confirmation = window.confirm("Tem certeza de que deseja excluir esta estação?");
-    if (confirmation) {
+    if (window.confirm("Tem certeza de que deseja excluir esta estação?")) {
       handleDelete();
     }
   };
@@ -58,69 +55,78 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
     try {
       const stationRef = doc(db, "radioStations", stationId);
       await deleteDoc(stationRef);
-      onDelete(stationId); // Remove a estação da lista no painel
-      onClose(); // Fecha o modal após a exclusão
+      onDelete(stationId);
+      onClose();
     } catch (error) {
       console.error("Erro ao excluir estação: ", error);
     }
   };
 
-  if (!station) {
-    return <p>Carregando estação...</p>;
-  }
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("Copiado para a área de transferência!");
+  };
+
+  if (loading) return <p>Carregando estação...</p>;
+  if (!station) return <p>Erro ao carregar estação.</p>;
 
   return (
     <div className="manage-station-container">
       <h2>Gerenciar Estação: {station.name}</h2>
+
       <div>
         <label>
           Nome da Estação:
           <input
             type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
+            value={station.name}
+            onChange={(e) => setStation({ ...station, name: e.target.value })}
           />
         </label>
       </div>
+
       <div>
         <label>
           Gênero:
           <input
             type="text"
-            value={newGenre}
-            onChange={(e) => setNewGenre(e.target.value)}
+            value={station.genre}
+            onChange={(e) => setStation({ ...station, genre: e.target.value })}
           />
         </label>
       </div>
-      <div>
-        <label>
-          Stream Key:
-          <input
-            type="text"
-            value={station.streamKey}
-            readOnly
-          />
+
+      <div className="copy-container">
+        <label>Servidor Icecast:  
+          <button className="botaoCopiar" onClick={() => copyToClipboard(serverUrl)}>Copiar</button>
         </label>
+        <input type="text" value={serverUrl} readOnly />
       </div>
-      <div>
-        <label>
-          Stream Mount:
-          <input
-            type="text"
-            value={station.streamMount}
-            readOnly
-          />
+
+      <div className="copy-container">
+        <label>Stream Mount: 
+        <button className="botaoCopiar" onClick={() => copyToClipboard(station.streamMount)}>Copiar</button>
         </label>
+        <input type="text" value={station.streamMount} readOnly />
       </div>
-      <button onClick={handleUpdate} className="buttonSalvar">
-        Salvar mudanças
-      </button>
-      <button onClick={handleDeleteConfirmation} className="buttonExcluir">
-        Excluir Estação
-      </button>
-      <button onClick={onClose} className="buttonFechar">
-        Fechar
-      </button>
+
+      <div className="copy-container">
+        <label>Stream Key (Senha):
+        <button className="botaoCopiar" onClick={() => copyToClipboard(station.streamKey)}>Copiar</button>
+        </label>
+        <input type="text" value={station.streamKey} readOnly />
+      </div>
+
+      <div className="copy-container">
+        <label>URL Completa de Transmissão:
+        <button className="botaoCopiar" onClick={() => copyToClipboard(`${serverUrl}${station.streamMount}`)}>Copiar</button>
+        </label>
+        <input type="text" value={`${serverUrl}${station.streamMount}`} readOnly />
+      </div>
+
+      <button onClick={handleUpdate} className="buttonSalvar">Salvar mudanças</button>
+      <button onClick={handleDeleteConfirmation} className="buttonExcluir">Excluir Estação</button>
+      <button onClick={onClose} className="buttonFechar">Fechar</button>
     </div>
   );
 };

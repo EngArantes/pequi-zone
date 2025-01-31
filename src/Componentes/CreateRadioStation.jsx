@@ -40,7 +40,7 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
       const streamKey = uuidv4();
       const streamMount = `/radio_${currentUser.uid}.mp3`;
       const serverUrl = "http://[2001:818:e7ed:8e00:7c01:d6be:ef5:a6da]";
-      const port = "8000"; // Substituir pela porta correta
+      const port = "8000";
       const fullStreamUrl = `${serverUrl}:${port}${streamMount}`;
       
       console.log("Enviando requisição para o backend...");
