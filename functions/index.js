@@ -4,7 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-app.use(cors({origin: "https://pequi-zone.web.app"})); // Permitir CORS para o seu site
+// Configuração do CORS
+app.use(cors({origin: ["https://pequi-zone.web.app", "http://localhost:3003"]}));
 app.use(express.json()); // Permitir JSON no corpo das requisições
 
 // Defina as credenciais do Icecast (alterar conforme necessário)

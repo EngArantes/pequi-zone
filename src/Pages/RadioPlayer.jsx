@@ -27,22 +27,28 @@ const RadioPlayer = ({ stationName, streamId }) => {
 
   // Função para tocar/pausar o áudio
   const togglePlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
+    if (audioRef.current && streamUrl) {  // Verificar se a URL do stream está disponível
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch((err) => {
+          setError("Erro ao reproduzir o áudio. Verifique a URL.");
+          console.error(err);
+        });
+      }
+      setIsPlaying(!isPlaying);
     } else {
-      audioRef.current.play().catch((err) => {
-        setError("Erro ao reproduzir o áudio. Verifique a URL.");
-        console.error(err);
-      });
+      setError("Erro: O áudio não está carregado ou a URL não está definida.");
     }
-    setIsPlaying(!isPlaying);
   };
 
   // Função para ajustar o volume
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
-    audioRef.current.volume = newVolume;
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
   };
 
   // Carregar a URL do stream quando o componente for montado
@@ -62,8 +68,9 @@ const RadioPlayer = ({ stationName, streamId }) => {
     }
   }, [streamUrl]);
 
+  // Exibe erro se existir
   if (error) {
-    return <p>{error}</p>; // Exibe erro caso algo dê errado
+    return <p>{error}</p>;
   }
 
   return (
