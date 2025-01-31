@@ -69,6 +69,32 @@ const RadioPlayer = ({ stationName, streamId }) => {
     }
   }, [streamUrl]);
 
+  // Adiciona listeners para os eventos do áudio
+  useEffect(() => {
+    const audioElement = audioRef.current;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleError = () => {
+      setError("Erro ao carregar o áudio. Verifique a URL.");
+      setIsPlaying(false);
+    };
+
+    if (audioElement) {
+      audioElement.addEventListener("play", handlePlay);
+      audioElement.addEventListener("pause", handlePause);
+      audioElement.addEventListener("error", handleError);
+    }
+
+    return () => {
+      if (audioElement) {
+        audioElement.removeEventListener("play", handlePlay);
+        audioElement.removeEventListener("pause", handlePause);
+        audioElement.removeEventListener("error", handleError);
+      }
+    };
+  }, []);
+
   if (error) {
     return <p>{error}</p>; // Exibe erro caso algo dê errado
   }
