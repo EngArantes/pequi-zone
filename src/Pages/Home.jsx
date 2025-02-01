@@ -2,13 +2,17 @@ import React from 'react';
 import './Home.css';
 import Banner_home from '../img/banner_home.jpg';
 import Footer from '../Componentes/Footer';
+import Player from './RadioPlayer';
 
 const Home = () => {
   return (
     <div className="home-container">
       {/* Hero Section */}
+      <h1>Dê play</h1>
+        <Player/>
       <section className="hero-section">
         <div className="hero-content">
+        
           <img src={Banner_home} className='bannerHome' alt='Banner Home' />
 
           <h1>Bem-vindo ao Pequi Zone</h1>

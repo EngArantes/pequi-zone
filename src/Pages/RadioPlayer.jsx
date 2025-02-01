@@ -101,7 +101,7 @@ const RadioPlayer = ({ stationName, streamId }) => {
 
   return (
     <div className="radio-player">
-      <h2>Estação: {stationName}</h2>
+      {/*<h2>Estação: {stationName}</h2>*/}
       <audio ref={audioRef} src={streamUrl} />
       <div className="player-controls">
         <button onClick={togglePlayPause} className="play-pause-button">
