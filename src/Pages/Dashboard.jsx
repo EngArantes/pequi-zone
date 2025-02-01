@@ -88,7 +88,7 @@ const Dashboard = () => {
         Criar Nova Estação
       </button>
 
-      <p>Cada usuário pode criar no máximo 2 estações!</p>
+      <p>Cada usuário pode criar apenas 1 estação!</p>
 
       {isModalOpen && <CreateStationModal onClose={closeModal} onCreate={fetchStations} />}
     </div>

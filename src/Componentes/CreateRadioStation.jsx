@@ -3,7 +3,7 @@ import { useAuth } from "../AuthContext";
 import { db } from "../firebaseConfig";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import "./CreateRadioStation.css";
-import { v4 as uuidv4 } from "uuid"; // Para gerar senhas únicas
+import { v4 as uuidv4 } from "uuid";
 
 const CreateRadioStation = ({ onClose, onCreate }) => {
   const { currentUser } = useAuth();
@@ -43,10 +43,10 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
       const streamKey = uuidv4();
 
       // Define o mount point (caminho da montagem no Icecast)
-      const streamMount = `/radio_${currentUser.uid}.mp3`;
+      const streamMount = `/pequi_zone_${currentUser.uid}.mp3`;
 
       // Configurações do servidor Icecast
-      const serverUrl = "http://149.90.203.102"; // Use o endereço IP público do servidor
+      const serverUrl = "http://149.90.203.128"; // Use o endereço IP público do servidor
       const port = "8000"; // Porta do Icecast
       const fullStreamUrl = `${serverUrl}:${port}${streamMount}`;
 
