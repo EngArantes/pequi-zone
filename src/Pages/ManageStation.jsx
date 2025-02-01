@@ -3,7 +3,7 @@ import { db } from "../firebaseConfig";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import "./ManageStation.css";
 
-const serverUrl = "http://SEU_IP_OU_DOMINIO:8000"; // Substitua pelo IP ou domínio do seu Icecast
+const serverUrl = "http://192.168.1.128:8000"; // Substitua pelo IP ou domínio do seu Icecast
 
 const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
   const [station, setStation] = useState(null);
