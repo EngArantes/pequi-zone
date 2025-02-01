@@ -43,12 +43,13 @@ const CreateRadioStation = ({ onClose, onCreate }) => {
       const streamKey = uuidv4();
 
       // Define o mount point (caminho da montagem no Icecast)
-      const streamMount = `/pequi_zone_${currentUser.uid}.mp3`;
+      const streamMount = `/${currentUser.uid}.mp3`;
+      const streamUrl = `pequi-zone/${streamMount}`
 
       // Configurações do servidor Icecast
-      const serverUrl = "http://149.90.203.128"; // Use o endereço IP público do servidor
-      const port = "8000"; // Porta do Icecast
-      const fullStreamUrl = `${serverUrl}:${port}${streamMount}`;
+      const serverUrl = "http://149.90.203.102"; // Use o endereço IP público do servidor
+      const port = "8000";
+      const fullStreamUrl = `${serverUrl}:${port}${streamUrl}`;
 
       console.log("Enviando requisição para o backend...");
 
