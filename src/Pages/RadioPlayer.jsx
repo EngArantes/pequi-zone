@@ -7,7 +7,7 @@ const RadioPlayer = ({ stationName, streamId }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1); // Volume vai de 0 a 1
   const [error, setError] = useState(null); // Estado para erros
-  const [streamUrl, setStreamUrl] = useState("https://stream.zeno.fm/mvwnqucijectv"); // URL do stream
+  const [streamUrl, setStreamUrl] = useState("http://radioterapia.radio12345.com/"); // URL do stream
   const audioRef = useRef(null); // Ref para controlar o áudio
 
   // Função para buscar a URL do stream
