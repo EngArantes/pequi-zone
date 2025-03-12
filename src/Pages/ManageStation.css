@@ -1,0 +1,112 @@
+/* ManageStation.css */
+
+.manage-station-container {
+    background-color: #fff;
+    color: #21115C;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .manage-station-container h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #21115C;
+    margin-bottom: 20px;
+  }
+  
+  .manage-station-container label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .manage-station-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .manage-station-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;    
+    color: white;
+  }
+  .buttonSalvar{
+    background-color: #5BA97D;
+  }
+  .buttonSalvar:hover{
+    background-color: #36694c;
+  }
+
+  .buttonExcluir{
+    background-color: #cacaca;
+  }
+  .buttonExcluir:hover{
+    background-color: #7a7a7a;
+  }
+
+  .buttonFechar{
+    background-color: #F6C113;
+  }
+  .buttonFechar:hover{
+    background-color: #bb920d;
+  }
+  
+  
+  
+  .manage-station-container button:first-child {
+    background-color: #21115C;
+    color: #fff;
+  }
+  
+  .manage-station-container button:nth-child(2) {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .manage-station-container button:nth-child(3) {
+    background-color: #f1f1f1;
+    color: #21115C;
+  }
+  
+  .manage-station-container button:nth-child(3):hover {
+    background-color: #ddd;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .manage-station-container input:focus {
+    outline: none;
+    border-color: #21115C;
+  }
+  
+  /* Para mensagens de sucesso e erro */
+.success-message {
+    color: green;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    font-size: 16px;
+  }
+  
