@@ -7,19 +7,34 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
   const [station, setStation] = useState(null);
   const [newName, setNewName] = useState("");
   const [newGenre, setNewGenre] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchStationData = async () => {
-      const stationDoc = await getDoc(doc(db, "radioStations", stationId));
-      if (stationDoc.exists()) {
-        const stationData = stationDoc.data();
-        setStation(stationData);
-        setNewName(stationData.name);
-        setNewGenre(stationData.genre);
+      try {
+        setLoading(true); // Inicia o carregamento
+        const stationDoc = await getDoc(doc(db, "radioStations", stationId));
+        
+        if (stationDoc.exists()) {
+          const stationData = stationDoc.data();
+          setStation(stationData);
+          setNewName(stationData.name);
+          setNewGenre(stationData.genre);
+        } else {
+          setError("Estação não encontrada.");
+        }
+      } catch (err) {
+        setError("Erro ao carregar dados da estação.");
+        console.error(err);
+      } finally {
+        setLoading(false); // Finaliza o carregamento
       }
     };
 
-    fetchStationData();
+    if (stationId) {
+      fetchStationData();
+    }
   }, [stationId]);
 
   const handleUpdate = async () => {
@@ -44,6 +59,7 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar estação: ", error);
+      setError("Erro ao salvar as alterações.");
     }
   };
 
@@ -62,11 +78,16 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
       onClose(); // Fecha o modal após a exclusão
     } catch (error) {
       console.error("Erro ao excluir estação: ", error);
+      setError("Erro ao excluir a estação.");
     }
   };
 
-  if (!station) {
+  if (loading) {
     return <p>Carregando estação...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
@@ -108,6 +129,36 @@ const ManageStation = ({ stationId, onClose, onDelete, onUpdate }) => {
           <input
             type="text"
             value={station.streamMount}
+            readOnly
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          IP:
+          <input
+            type="text"
+            value={station.ip}
+            readOnly
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Porta:
+          <input
+            type="text"
+            value={station.port}
+            readOnly
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Senha:
+          <input
+            type="text"
+            value={station.password}
             readOnly
           />
         </label>
