@@ -1,14 +1,18 @@
 import React from 'react';
-import './Footer.css'; 
-import Banner_home from '../img/banner_home.jpg';
+import './Footer.css';
 
 const Footer = () => {
   return (
-    <div className="footer-container">     
+    <div className="footer-container">
+      <div className="footer-links">
+        <a href="/sobre">Sobre</a>
+        <a href="/contato">Contato</a>
+        <a href="/termos">Termos</a>
+        <a href="/privacidade">Privacidade</a>
+      </div>
 
-      {/* Footer */}
       <footer className="footer-footer">
-        <p>&copy; 2023 Pequi Zone. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} Pequi3D Print. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

@@ -1,0 +1,305 @@
+/* Container principal */
+.product-detail-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background-color: #f8f9fa;
+}
+
+.product-detail-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  box-sizing: border-box;
+  /* Adicionando uma linha para a descrição no final */
+  grid-template-rows: auto 1fr auto; /* Adiciona uma linha para a descrição */
+}
+
+/* Seção de Imagens */
+.image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.main-image-container {
+  width: 100%;
+  max-width: 500px;
+  height: 450px;
+  background-color: #f2f2f2;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.main-image:hover {
+  transform: scale(1.02);
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.thumbnail-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+.thumbnail-row.no-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
+}
+
+.carousel-arrow {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carousel-arrow.left {
+  left: -40px;
+}
+
+.carousel-arrow.right {
+  right: -40px;
+}
+
+.thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.thumb:hover,
+.thumb.active {
+  border-color: #007bff;
+  transform: scale(1.05);
+}
+
+/* Seção de Detalhes do Produto */
+.details-section {
+  display: flex;
+  flex-direction: column;
+  justify-content:first baseline;
+  gap: 1rem;
+}
+
+.details-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #452a66;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.price-inteiro {
+  font-size: 2.5rem;
+}
+
+.price-centavos {
+  font-size: 1.2rem;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+.badge {
+  display: inline-block;
+  background: #f39c12;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.product-description {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  /* Adicionando a descrição com largura total */
+  grid-column: span 2; /* Faz com que ocupe toda a largura das duas colunas */
+  padding-top: 1rem;
+}
+
+.titulo_descricao{
+  font-size: xx-large;
+  color: #452a66;
+}
+
+.product-category {
+  font-size: 0.95rem;
+  color: #777;
+  font-style: italic;
+}
+
+.product-dimensions {
+  font-size: 1.1rem;
+  margin-top: 15px;
+  color: #333;
+}
+
+.product-dimensions strong {
+  font-weight: bold;
+}
+
+
+/* Estilo para o modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Estilo do conteúdo do modal com tamanho fixo */
+.modal-content {
+  position: relative;
+  width: 800px; /* Largura fixa do modal */
+  height: 650px; /* Altura fixa do modal */
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden; /* Impede o excesso de imagem */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo da imagem dentro do modal */
+.modal-image {
+  width: auto;
+  height: 100%; /* A altura será fixa */
+  object-fit: contain; /* A imagem se ajusta para manter as proporções */
+  display: block; /* Evita que a imagem tenha espaços extras */
+}
+
+/* Botão para fechar o modal */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: #331952;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;  
+}
+
+.close-button:hover {
+  background-color: #5e398a;
+}
+
+/* Estilo para as setas no modal */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 960px) {
+  .product-detail-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .main-image-container {
+    height: 350px;
+  }
+
+  .details-section h1 {
+    font-size: 2rem;
+  }
+
+  .product-price {
+    font-size: 1.7rem;
+  }
+
+  .product-description {
+    grid-column: span 1; /* Se estiver em uma coluna, a descrição vai ocupar a largura completa */
+  }
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 4rem 1rem;
+}

@@ -1,0 +1,23 @@
+.add-to-cart {
+    background-color: #452a66; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    font-size: 1.2rem; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    padding: 12px 24px; /* Tamanho do botão */
+    border-radius: 8px; /* Bordas arredondadas */
+    border: none; /* Sem borda */
+    cursor: pointer; /* Cursor de mão */
+    transition: background-color 0.3s ease; /* Transição suave para a cor */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+    max-width: 300px; /* Limita a largura máxima do botão */
+    text-align: center;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #331952; /* Cor de fundo quando passar o mouse */
+  }
+  
+  .add-to-cart:focus {
+    outline: none; /* Retira o contorno quando o botão for clicado */
+  }
+  

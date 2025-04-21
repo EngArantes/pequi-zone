@@ -1,47 +1,41 @@
 import React from 'react';
 import './Home.css';
-import Banner_home from '../img/banner_home.jpg';
 import Footer from '../Componentes/Footer';
+import { Link } from 'react-router-dom';
+import HeroImg from '../assets/3dprinter-hero.jpg';
+import ProductList from '../Componentes/ProductList'; // <- Importa o card
 
 const Home = () => {
   return (
     <div className="home-container">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <img src={Banner_home} className='bannerHome' alt='Banner Home' />
-
-          <h1>Bem-vindo ao Pequi Zone</h1>
-          <p className="hero-text">
-            Crie e compartilhe suas próprias estações de rádio. Transmita sua música, podcasts e muito mais para o mundo!
-          </p>
-
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-text">
+          <h1>Transforme Ideias em Objetos Reais</h1>
+          <p>Impressão 3D sob medida, com ou sem pintura, qualidade profissional.</p>
+        </div>
+        <div className="hero-image">
+          <img src={HeroImg} alt="Impressora 3D" />
         </div>
       </section>
 
-      {/* Como Funciona Section */}
-      <section className="how-it-works">
-        <h2>Como Funciona</h2>
-        <div className="steps-container">
-          <div className="step">
-            <div className="step-icon">1</div>
-            <h3>Crie sua Conta</h3>
-            <p>Registre-se gratuitamente e comece a usar o Pequi Zone.</p>
-          </div>
-          <div className="step">
-            <div className="step-icon">2</div>
-            <h3>Configure sua Estação</h3>
-            <p>Adicione músicas, podcasts e personalize sua estação de rádio.</p>
-          </div>
-          <div className="step">
-            <div className="step-icon">3</div>
-            <h3>Compartilhe com o Mundo</h3>
-            <p>Transmita sua estação e conquiste ouvintes de todos os lugares.</p>
-          </div>
+      {/* Seção de Produtos em Destaque */}
+      <section className="product-showcase">
+        <h2>Produtos em Destaque</h2>
+        <div className="product-grid">
+          <ProductList />
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Seções de Destaque */}
+      <section className="features">
+        <Link to="/stl-upload" className="text-stl">
+          <div className="feature-box">
+            <h3>📁 Envie seu STL aqui!</h3>
+            <p>Tem um modelo próprio? Envie para impressão com cálculo automático.</p>
+          </div>
+        </Link>
+      </section>
       <Footer />
     </div>
   );

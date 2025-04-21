@@ -1,52 +1,104 @@
-/* Definir a cor de fundo e o texto do header */
-.nav-links {
-    background-color: #3a7755; 
+.header {
+    background-color: #2B1D42;
     color: white;
-    padding: 16px;
+    padding: 12px 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .header-content {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 30px;
-}
-
-
-.logo-container{
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  
+  .logo-link {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: white; 
-}
-
-/* Logo */
-.logomarcaHeader {
-    width: 200px;
-    margin: 20px;
-}
-
-/* Estilizando os links */
-.nav-links a {
+    gap: 10px;
     text-decoration: none;
     color: white;
-    font-weight: bold;
-}
-
-/* Hover nos links */
-.nav-links a:hover {
-    text-decoration: underline;
-}
-
-/* Estilização do ícone de usuário */
-.icon-button {
-    background: none;
-    border: none;
-    color: #F6C113;
-    cursor: pointer;
-    font-size: 20px;
+  }
+  
+  .logo {
+    height: 60px;
+    width: auto;
+  }
+  
+  .site-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .nav {
     display: flex;
     align-items: center;
-}
+    gap: 20px;
+  }
+  
+  .nav-item {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item:hover {
+    color: #F5BB02;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    color: #F5BB02;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+  
+  .icon-button:hover {
+    color: #fff;
+  }
 
-.icon-button:hover {
-    color: #c0c0c0;
-}
-
+  .cart-button {
+    position: relative;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: red;
+    color: white;
+    font-size: 11px;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-weight: bold;
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .nav {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+  
+    .nav-item, .icon-button {
+      padding: 8px 0;
+    }
+  }
+  

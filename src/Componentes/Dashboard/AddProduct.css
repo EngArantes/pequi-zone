@@ -1,0 +1,136 @@
+.add-product-container {
+  padding: 40px;
+  max-width: 600px; /* Aumenta a largura para tornar o formulário mais espaçoso */
+  margin: 40px auto; /* Adiciona margem superior e inferior */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif; /* Define a fonte para o formulário */
+}
+
+h2 {
+  text-align: center;
+  color: #452a66;
+  margin-bottom: 20px;
+}
+
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Aumenta o espaço entre os elementos do formulário */
+}
+
+.add-product-form input,
+.add-product-form textarea,
+.add-product-form select {
+  padding: 14px;
+  border: 1px solid #ddd; /* Muda a cor da borda para um tom mais suave */
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease; /* Adiciona transição suave nas bordas */
+}
+
+.add-product-form input:focus,
+.add-product-form textarea:focus,
+.add-product-form select:focus {
+  border-color: #452a66; /* Muda a cor da borda ao focar no campo */
+  outline: none;
+}
+
+textarea {
+  resize: vertical; /* Permite redimensionar o campo de texto */
+  min-height: 100px; /* Define uma altura mínima para o campo de texto */
+}
+
+label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+button {
+  padding: 14px;
+  background-color: #452a66;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transição para o efeito de hover */
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #341f4f;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+}
+
+.add-product-form input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Efeito de transição para o fundo */
+}
+
+.add-product-form input[type="file"]:hover {
+  background-color: #eaeaea; /* Altera o fundo quando o usuário passa o mouse */
+}
+
+.add-product-form select {
+  background-color: #f7f7f7;
+}
+
+.add-product-form select option {
+  background-color: #fff;
+}
+
+/* Adiciona um espaço entre os campos */
+.add-product-form input[type="file"] {
+  padding: 8px;
+}
+
+.add-product-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.dimensions-container {
+  display: flex;
+  gap: 16px;
+}
+
+.dimensions-container input {
+  width: 100%;
+}
+
+
+@media (max-width: 600px) {
+  .add-product-container {
+    padding: 20px;
+    max-width: 100%; /* Faz o formulário ocupar toda a largura disponível em telas pequenas */
+  }
+
+  .add-product-form input,
+  .add-product-form textarea,
+  .add-product-form select {
+    padding: 10px;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 14px; /* Ajusta o tamanho do botão em telas pequenas */
+  }
+}
