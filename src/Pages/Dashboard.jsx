@@ -3,6 +3,7 @@ import AddProduct from "../Componentes/Dashboard/AddProduct";
 import ListarProdutos from "../Componentes/Dashboard/ListarProdutos";
 import Sidebar from "../Componentes/Dashboard/SideBar";
 import "./Dashboard.css";
+import AddBannerPrincipal from '../Componentes/Dashboard/EnviarBannerPrincipal';
 
 const Dashboard = () => {
   const [view, setView] = useState('add');
@@ -15,6 +16,8 @@ const Dashboard = () => {
         return <ListarProdutos />;
       case 'pedidos':
         return <div>Listar Pedidos (em breve)</div>;
+      case 'banners':
+        return <AddBannerPrincipal/>;
       default:
         return <div>Escolha uma opção no menu.</div>;
     }

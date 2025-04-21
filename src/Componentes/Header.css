@@ -1,104 +1,108 @@
 .header {
-    background-color: #2B1D42;
-    color: white;
-    padding: 12px 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  
+  background-color: #2B1D42;
+  color: white;
+  padding: 12px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #F5BB02;
+}
+
+/* Estilo para o link ativo */
+.nav-item.active {
+  color: #F5BB02; /* Cor para o link ativo */
+  font-weight: bold; /* Tornar o link mais destacado */
+  border-bottom: 2px solid #F5BB02; /* Adiciona uma linha abaixo do link ativo */
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: #F5BB02;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+  color: #fff;
+}
+
+.cart-button {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  font-size: 11px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
   .header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-  }
-  
-  .logo-link {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
-    text-decoration: none;
-    color: white;
-  }
-  
-  .logo {
-    height: 60px;
-    width: auto;
-  }
-  
-  .site-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .nav-item {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-item:hover {
-    color: #F5BB02;
-  }
-  
-  .icon-button {
-    background: none;
-    border: none;
-    color: #F5BB02;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s ease;
-  }
-  
-  .icon-button:hover {
-    color: #fff;
   }
 
-  .cart-button {
-    position: relative;
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
   }
-  
-  .cart-badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background-color: red;
-    color: white;
-    font-size: 11px;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-weight: bold;
+
+  .nav-item, .icon-button {
+    padding: 8px 0;
   }
-  
-  
-  
-  @media (max-width: 768px) {
-    .header-content {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-  
-    .nav {
-      flex-direction: column;
-      align-items: flex-start;
-      width: 100%;
-    }
-  
-    .nav-item, .icon-button {
-      padding: 8px 0;
-    }
-  }
-  
+}

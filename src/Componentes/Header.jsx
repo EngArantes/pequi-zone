@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'; // Importando useLocation
 import { FaUser, FaSignOutAlt, FaShoppingCart } from 'react-icons/fa';
 import './Header.css';
 import Logo from '../logo512.png';
@@ -14,9 +14,13 @@ const Header = () => {
   const { currentUser, logout, isAdmin } = useAuth();
   const { cartItems } = useCart();
 
+  const location = useLocation(); // Hook para pegar o caminho atual
+
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const handleLogout = () => logout();
   const toggleCart = () => setIsCartOpen(!isCartOpen);
+
+  const isActive = (path) => location.pathname === path ? 'active' : ''; // Função para determinar se o link está ativo
 
   return (
     <>
@@ -27,10 +31,10 @@ const Header = () => {
           </Link>
 
           <nav className="nav">
-            <Link to="/" className="nav-item">Home</Link>
-            <Link to="/stl-upload" className="nav-item">Upload STL</Link>
+            <Link to="/" className={`nav-item ${isActive('/')}`}>Home</Link>
+            <Link to="/stl-upload" className={`nav-item ${isActive('/stl-upload')}`}>Upload STL</Link>
 
-            {currentUser && isAdmin && <Link to="/dashboard" className="nav-item">Dashboard</Link>}
+            {currentUser && isAdmin && <Link to="/dashboard" className={`nav-item ${isActive('/dashboard')}`}>Dashboard</Link>}
 
             {currentUser ? (
               <button className="icon-button" onClick={handleLogout}>
