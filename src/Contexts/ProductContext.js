@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, addDoc, getDocs, getDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, getDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 const ProductContext = createContext();
 
@@ -30,6 +30,43 @@ export const ProductProvider = ({ children }) => {
       return null;
     }
   };
+
+
+   // ✅ Adiciona função de edição
+   const editProduct = async (updatedProduct) => {
+    try {
+      const productRef = doc(db, 'produtos', updatedProduct.id);
+      await updateDoc(productRef, {
+        nome: updatedProduct.nome,
+        preco: updatedProduct.preco,
+        imagem: updatedProduct.imagem,
+      });
+
+      setProducts(prev =>
+        prev.map(prod => (prod.id === updatedProduct.id ? updatedProduct : prod))
+      );
+      console.log(`Produto ${updatedProduct.id} editado com sucesso.`);
+    } catch (error) {
+      console.error('Erro ao editar produto:', error);
+    }
+  };
+
+
+  const deleteProduct = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'produtos', id));
+      setProducts(prev => prev.filter(prod => prod.id !== id)); // remove do estado
+      console.log(`Produto ${id} deletado com sucesso.`);
+    } catch (error) {
+      console.error('Erro ao deletar produto:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+
   
   
 
@@ -38,7 +75,7 @@ export const ProductProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, addProduct, fetchProducts, getProductById }}>
+    <ProductContext.Provider value={{ products, addProduct, fetchProducts, getProductById, deleteProduct, editProduct }}>
       {children}
     </ProductContext.Provider>
   );

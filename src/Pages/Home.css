@@ -3,22 +3,6 @@
 }
 
 
-.cta-button {
-  background-color: #F6C113;
-  color: #2B1D42;
-  padding: 12px 24px;
-  border: none;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.cta-button:hover {
-  background-color: #e5af0f;
-}
-
-
 /* Features */
 .features {
   display: flex;

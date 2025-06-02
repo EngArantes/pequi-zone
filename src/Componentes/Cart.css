@@ -36,9 +36,13 @@
   .close-btn {
     background: none;
     border: none;
-    color: white;
+    color: #f39c12;
     font-size: 1.5rem;
     cursor: pointer;
+  }
+
+  .close-btn:hover{
+    color: #8d5f15;
   }
   
   .cart-content {
@@ -105,7 +109,7 @@
   }
   
   .checkout-button {
-    background-color: #f39c12;
+    background-color: #452A66;
     color: white;
     padding: 1rem 2rem;
     font-size: 1.1rem;
@@ -116,7 +120,7 @@
   }
   
   .checkout-button:hover {
-    background-color: #e67e22;
+    background-color: #2b104d;
   }
   
   .quantity-control {

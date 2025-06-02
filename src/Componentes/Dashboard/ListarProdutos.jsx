@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import './ListarProdutos.css';
+import { useProduct } from '../../Contexts/ProductContext';
+import ModalEditarProduto from './ModalEditProduct';
 
 const ListarProdutos = () => {
     const [produtos, setProdutos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { deleteProduct, editProduct } = useProduct();
+    const [modalAberto, setModalAberto] = useState(false);
+    const [produtoEditando, setProdutoEditando] = useState(null);
+
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -26,6 +32,26 @@ const ListarProdutos = () => {
         fetchProdutos();
     }, []);
 
+
+    const handleEdit = (produto) => {
+        setProdutoEditando(produto);
+        setModalAberto(true);
+    };
+
+    const handleSaveEdit = async (produtoAtualizado) => {
+        await editProduct(produtoAtualizado);
+        setProdutos(prev => prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
+    };
+
+
+
+    const handleDelete = async (id) => {
+        if (window.confirm('Tem certeza que deseja deletar este produto?')) {
+            await deleteProduct(id);
+            setProdutos(prev => prev.filter(p => p.id !== id)); // Atualiza localmente
+        }
+    };
+
     if (loading) return <div>Carregando produtos...</div>;
 
     return (
@@ -41,21 +67,31 @@ const ListarProdutos = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {produtos.map((produto) => (
-                        <tr key={produto.id}>
+                    {produtos.map((product) => (
+                        <tr key={product.id}>
                             <td>
-                                <img src={produto.imagem} alt={produto.nome} className="produto-thumb" />
+                                <img src={product.imagem} alt={product.nome} className="produto-thumb" />
                             </td>
-                            <td>{produto.nome}</td>
-                            <td>€ {parseFloat(produto.preco).toFixed(2)}</td>
+                            <td>{product.nome}</td>
+                            <td>€ {parseFloat(product.preco).toFixed(2)}</td>
                             <td>
-                                <button className="editar">Editar</button>
-                                <button className="excluir">Excluir</button>
+                                <button onClick={() => handleEdit(product)} className="editar">Editar</button>
+                                <button onClick={() => handleDelete(product.id)} className="excluir">
+                                    Excluir
+                                </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            {modalAberto && (
+                <ModalEditarProduto
+                    produto={produtoEditando}
+                    onClose={() => setModalAberto(false)}
+                    onSave={handleSaveEdit}
+                />
+            )}
+
         </div>
     );
 };
